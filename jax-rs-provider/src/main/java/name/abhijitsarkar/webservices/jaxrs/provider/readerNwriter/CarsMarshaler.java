@@ -1,4 +1,4 @@
-package name.abhijitsarkar.webservices.jaxrs.provider;
+package name.abhijitsarkar.webservices.jaxrs.provider.readerNwriter;
 
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
@@ -22,15 +22,20 @@ import javax.xml.transform.stream.StreamResult;
 
 import name.abhijitsarkar.webservices.jaxrs.provider.domain.Car;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-// A Java EE container can scan and register classes annotated with @Provider; Servlet containers like Jetty can't so
-// Providers need to be registered with the Application class.
+/* A Java EE container can scan and register classes annotated with @Provider; Servlet containers like Jetty can't so
+ * Providers need to be registered with the Application class.
+ */
 
 @Provider
 @Produces(MediaType.APPLICATION_XML)
 public class CarsMarshaler implements MessageBodyWriter<List<Car>> {
+    private static final Logger LOGGER = LoggerFactory
+	    .getLogger(CarsMarshaler.class);
 
     @Override
     public boolean isWriteable(Class<?> type, Type genericType,
@@ -56,6 +61,8 @@ public class CarsMarshaler implements MessageBodyWriter<List<Car>> {
 
     private void writeXML(List<Car> cars, Class<?> type, Type genericType,
 	    MediaType mediaType, OutputStream entityStream) {
+	LOGGER.info("Writing out a list of cars to XML.");
+
 	Transformer tf = null;
 
 	try {

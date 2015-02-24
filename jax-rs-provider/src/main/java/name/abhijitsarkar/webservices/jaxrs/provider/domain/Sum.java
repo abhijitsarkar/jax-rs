@@ -9,8 +9,8 @@ public class Sum {
 
     }
 
-    public Sum(int sum) {
-	this.sum = sum;
+    public Sum(int augend, int addend) {
+	this.sum = augend + addend;
     }
 
     @XmlValue

@@ -1,9 +1,14 @@
 package name.abhijitsarkar.webservices.jaxrs.provider;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+import static javax.xml.bind.JAXB.unmarshal;
 import static org.jboss.shrinkwrap.api.Filters.exclude;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertEquals;
+
+import java.io.StringReader;
+
 import name.abhijitsarkar.webservices.jaxrs.provider.client.CalculatorClient;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -29,7 +34,17 @@ public class CalculatorIntegrationTest {
     }
 
     @Test
-    public void testAdd() throws Exception {
-	assertEquals(3, client.request(APPLICATION_JSON, 1, 2));
+    public void testAddAcceptingJSON() {
+	String response = client.request(APPLICATION_JSON, 1, 2);
+
+	assertEquals("{\"value\":3}", response);
+    }
+
+    @Test
+    public void testAddAcceptingXML() {
+	String response = client.request(APPLICATION_XML, 1, 2);
+
+	assertEquals(Integer.valueOf(3),
+		unmarshal(new StringReader(response), Integer.class));
     }
 }

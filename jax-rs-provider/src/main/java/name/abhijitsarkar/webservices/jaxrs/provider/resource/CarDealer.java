@@ -24,7 +24,7 @@ public class CarDealer {
 
     @GET
     @Produces({ MediaType.APPLICATION_XML })
-    public List<Car> listAllCarsAsXML() {
+    public List<Car> listCars() {
 	return cars;
     }
 }

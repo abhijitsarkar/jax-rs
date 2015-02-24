@@ -1,4 +1,4 @@
-package name.abhijitsarkar.webservices.jaxrs.provider;
+package name.abhijitsarkar.webservices.jaxrs.provider.readerNwriter;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -20,15 +20,20 @@ import javax.xml.transform.stream.StreamSource;
 
 import name.abhijitsarkar.webservices.jaxrs.provider.domain.Car;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-// A Java EE container can scan and register classes annotated with @Provider or they can be registered with the 
-// Application class; For a standalone client, the Provider needs to be registered with the client framework.
-
-//@Provider
+/* We don't need to register this as an entity provider because in this case, it's the client that's unmarshaling, 
+ * not the server. If the client were sending a list of cars and the server were accepting it as a method parameter,
+ * then we'd need to register this as an entity provider.
+ * This class needs to be manually registered on the client side. 
+ */
 @Consumes(MediaType.APPLICATION_XML)
 public class CarsUnmarshaler implements MessageBodyReader<List<Car>> {
+    private static final Logger LOGGER = LoggerFactory
+	    .getLogger(CarsUnmarshaler.class);
 
     @Override
     public boolean isReadable(Class<?> type, Type genericType,
@@ -47,6 +52,8 @@ public class CarsUnmarshaler implements MessageBodyReader<List<Car>> {
 
     private List<Car> readXML(Class<List<Car>> type, Type genericType,
 	    MediaType mediaType, InputStream entityStream) {
+	LOGGER.info("Reading a list of cars from XML.");
+
 	List<Car> cars = new ArrayList<Car>();
 
 	try {

@@ -50,6 +50,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.spec.javax.json</groupId>
+			<artifactId>jboss-json-api_1.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 			<scope>provided</scope>
@@ -58,6 +63,11 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<!-- Use Jackson instead of Jettision -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson2-provider</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>

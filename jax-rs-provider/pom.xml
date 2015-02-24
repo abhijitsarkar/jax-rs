@@ -8,4 +8,6 @@
 	</parent>
 	<artifactId>jax-rs-provider</artifactId>
 	<packaging>war</packaging>
+
+	<!-- https://jersey.java.net/documentation/latest/filters-and-interceptors.html -->
 </project>

@@ -1,4 +1,4 @@
-package name.abhijitsarkar.webservices.jaxrs.provider;
+package name.abhijitsarkar.webservices.jaxrs.provider.readerNwriter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;

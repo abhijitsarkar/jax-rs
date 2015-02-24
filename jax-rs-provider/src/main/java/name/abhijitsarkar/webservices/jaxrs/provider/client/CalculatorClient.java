@@ -1,7 +1,6 @@
 package name.abhijitsarkar.webservices.jaxrs.provider.client;
 
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +16,7 @@ public class CalculatorClient {
     }
 
     public String request(String mediaType, int arg0, int arg1) {
-	Client client = ClientBuilder.newClient();
+	Client client = ClientFactory.newClient();
 
 	WebTarget wt = client.target(CALC_RESOURCE_URI);
 	Builder builder = wt.queryParam("arg0", arg0).queryParam("arg1", arg1)
