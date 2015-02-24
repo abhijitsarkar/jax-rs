@@ -246,5 +246,6 @@
 
 	<modules>
 		<module>jax-rs-provider</module>
+		<module>jax-rs-subresource</module>
 	</modules>
 </project>

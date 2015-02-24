@@ -23,7 +23,7 @@ public class CarDealerIntegrationTest {
     public static WebArchive createDeployment() {
 	WebArchive app = create(WebArchive.class, "jax-rs-provider.war")
 		.addPackages(true, exclude(CarDealerClient.class.getPackage()),
-			JAXRSProviderApplication.class.getPackage());
+			ProviderApplication.class.getPackage());
 
 	System.out.println(app.toString(true));
 
