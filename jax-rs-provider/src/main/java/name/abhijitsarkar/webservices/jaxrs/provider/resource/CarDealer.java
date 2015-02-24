@@ -14,17 +14,17 @@ import name.abhijitsarkar.webservices.jaxrs.provider.domain.Porshe;
 
 @Path("/dealer")
 public class CarDealer {
-	private static final List<Car> cars;
+    private static final List<Car> cars;
 
-	static {
-		cars = new ArrayList<Car>();
-		cars.add(new Porshe());
-		cars.add(new Lamborghini());
-	}
+    static {
+	cars = new ArrayList<Car>();
+	cars.add(new Porshe());
+	cars.add(new Lamborghini());
+    }
 
-	@GET
-	@Produces({ MediaType.APPLICATION_XML })
-	public List<Car> listAllCarsAsXML() {
-		return cars;
-	}
+    @GET
+    @Produces({ MediaType.APPLICATION_XML })
+    public List<Car> listAllCarsAsXML() {
+	return cars;
+    }
 }

@@ -7,26 +7,26 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 public class CalculatorClient {
-	private static final String CALC_RESOURCE_URI = "http://localhost:8080/jax-rs-provider/calc";
+    private static final String CALC_RESOURCE_URI = "http://localhost:8080/jax-rs-provider/calc";
 
-	public static void main(String[] args) {
-		CalculatorClient cClient = new CalculatorClient();
+    public static void main(String[] args) {
+	CalculatorClient cClient = new CalculatorClient();
 
-		System.out.println(cClient.request(MediaType.APPLICATION_XML, 1, 2));
-		System.out.println(cClient.request(MediaType.APPLICATION_JSON, 1, 2));
-	}
+	System.out.println(cClient.request(MediaType.APPLICATION_XML, 1, 2));
+	System.out.println(cClient.request(MediaType.APPLICATION_JSON, 1, 2));
+    }
 
-	public String request(String mediaType, int arg0, int arg1) {
-		Client client = ClientBuilder.newClient();
+    public String request(String mediaType, int arg0, int arg1) {
+	Client client = ClientBuilder.newClient();
 
-		WebTarget wt = client.target(CALC_RESOURCE_URI);
-		Builder builder = wt.queryParam("arg0", arg0).queryParam("arg1", arg1)
-				.request();
+	WebTarget wt = client.target(CALC_RESOURCE_URI);
+	Builder builder = wt.queryParam("arg0", arg0).queryParam("arg1", arg1)
+		.request();
 
-		String response = builder.accept(mediaType).get(String.class);
+	String response = builder.accept(mediaType).get(String.class);
 
-		client.close();
+	client.close();
 
-		return response;
-	}
+	return response;
+    }
 }

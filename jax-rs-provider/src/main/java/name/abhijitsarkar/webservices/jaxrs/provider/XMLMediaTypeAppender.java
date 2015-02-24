@@ -21,41 +21,41 @@ import javax.ws.rs.ext.Provider;
 // Add XML to the list of acceptable content types as that's the only custom
 // EntityProvider we support
 public class XMLMediaTypeAppender implements ContainerRequestFilter,
-		ContainerResponseFilter {
+	ContainerResponseFilter {
 
-	@Override
-	public void filter(ContainerRequestContext requestContext)
-			throws IOException {
-		List<MediaType> mediaTypes = requestContext.getAcceptableMediaTypes();
+    @Override
+    public void filter(ContainerRequestContext requestContext)
+	    throws IOException {
+	List<MediaType> mediaTypes = requestContext.getAcceptableMediaTypes();
 
-		if (mediaTypes.contains(MediaType.APPLICATION_XML_TYPE)) {
-			return;
-		}
-
-		MultivaluedMap<String, String> requestHdrs = requestContext
-				.getHeaders();
-		List<String> originalAcceptHdr = requestHdrs.get("Accept");
-
-		requestHdrs.put("Original-Accept", originalAcceptHdr);
-
-		List<String> acceptHdr = new ArrayList<String>(originalAcceptHdr);
-		acceptHdr.add(MediaType.APPLICATION_XML);
-
-		requestHdrs.put("Accept", acceptHdr);
+	if (mediaTypes.contains(MediaType.APPLICATION_XML_TYPE)) {
+	    return;
 	}
 
-	@Override
-	public void filter(ContainerRequestContext requestContext,
-			ContainerResponseContext responseContext) throws IOException {
-		MultivaluedMap<String, String> requestHdrs = requestContext
-				.getHeaders();
-		List<String> originalAcceptHdr = requestHdrs.get("Original-Accept");
+	MultivaluedMap<String, String> requestHdrs = requestContext
+		.getHeaders();
+	List<String> originalAcceptHdr = requestHdrs.get("Accept");
 
-		if (originalAcceptHdr != null) {
-			responseContext.getHeaders().putSingle("Original-Accept",
-					originalAcceptHdr);
+	requestHdrs.put("Original-Accept", originalAcceptHdr);
 
-			requestHdrs.remove("Original-Accept");
-		}
+	List<String> acceptHdr = new ArrayList<String>(originalAcceptHdr);
+	acceptHdr.add(MediaType.APPLICATION_XML);
+
+	requestHdrs.put("Accept", acceptHdr);
+    }
+
+    @Override
+    public void filter(ContainerRequestContext requestContext,
+	    ContainerResponseContext responseContext) throws IOException {
+	MultivaluedMap<String, String> requestHdrs = requestContext
+		.getHeaders();
+	List<String> originalAcceptHdr = requestHdrs.get("Original-Accept");
+
+	if (originalAcceptHdr != null) {
+	    responseContext.getHeaders().putSingle("Original-Accept",
+		    originalAcceptHdr);
+
+	    requestHdrs.remove("Original-Accept");
 	}
+    }
 }

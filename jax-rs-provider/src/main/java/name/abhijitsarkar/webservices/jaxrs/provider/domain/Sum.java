@@ -5,18 +5,18 @@ import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement(name = "sum", namespace = "http://abhijitsarkar.name/webservices/jaxrs/provider/")
 public class Sum {
-	public Sum() {
+    public Sum() {
 
-	}
+    }
 
-	public Sum(int sum) {
-		this.sum = sum;
-	}
+    public Sum(int sum) {
+	this.sum = sum;
+    }
 
-	@XmlValue
-	private int sum;
+    @XmlValue
+    private int sum;
 
-	public int getSum() {
-		return sum;
-	}
+    public int getSum() {
+	return sum;
+    }
 }

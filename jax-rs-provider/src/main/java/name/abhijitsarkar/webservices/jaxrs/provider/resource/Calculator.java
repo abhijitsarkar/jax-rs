@@ -10,9 +10,9 @@ import name.abhijitsarkar.webservices.jaxrs.provider.domain.Sum;
 
 @Path("calc")
 public class Calculator {
-	@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Sum add(@QueryParam("arg0") int arg0, @QueryParam("arg1") int arg1) {
-		return new Sum(arg0 + arg1);
-	}
+    @GET
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public Sum add(@QueryParam("arg0") int arg0, @QueryParam("arg1") int arg1) {
+	return new Sum(arg0 + arg1);
+    }
 }

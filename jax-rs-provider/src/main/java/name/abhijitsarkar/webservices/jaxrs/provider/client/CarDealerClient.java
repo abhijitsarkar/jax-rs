@@ -9,40 +9,42 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
+import name.abhijitsarkar.webservices.jaxrs.provider.CarsUnmarshaler;
+import name.abhijitsarkar.webservices.jaxrs.provider.OriginalAcceptHdrRestorer;
 import name.abhijitsarkar.webservices.jaxrs.provider.domain.Car;
 
 public class CarDealerClient {
-	private static final String DEALER_RESOURCE_URI = "http://localhost:8080/jax-rs-provider/dealer";
+    private static final String DEALER_RESOURCE_URI = "http://localhost:8080/jax-rs-provider/dealer";
 
-	public static void main(String[] args) {
-		CarDealerClient dealerClient = new CarDealerClient();
+    public static void main(String[] args) {
+	CarDealerClient dealerClient = new CarDealerClient();
 
-		System.out.println(dealerClient.request(MediaType.APPLICATION_JSON));
+	System.out.println(dealerClient.request(MediaType.APPLICATION_JSON));
 
-		System.out.println(dealerClient.request(MediaType.APPLICATION_XML));
-	}
+	System.out.println(dealerClient.request(MediaType.APPLICATION_XML));
+    }
 
-	public List<Car> request(String mediaType) {
-		Client client = newClient();
+    public List<Car> request(String mediaType) {
+	Client client = newClient();
 
-		WebTarget wt = client.target(DEALER_RESOURCE_URI);
-		Builder builder = wt.request();
+	WebTarget wt = client.target(DEALER_RESOURCE_URI);
+	Builder builder = wt.request();
 
-		GenericType<List<Car>> cars = new GenericType<List<Car>>() {
-		};
+	GenericType<List<Car>> cars = new GenericType<List<Car>>() {
+	};
 
-		List<Car> response = builder.accept(mediaType).get(cars);
+	List<Car> response = builder.accept(mediaType).get(cars);
 
-		client.close();
+	client.close();
 
-		return response;
-	}
+	return response;
+    }
 
-	private Client newClient() {
-		Client client = ClientBuilder.newClient();
-		client.register(CarsUnmarshaler.class);
-		client.register(OriginalAcceptHdrRestorer.class);
+    private Client newClient() {
+	Client client = ClientBuilder.newClient();
+	client.register(CarsUnmarshaler.class);
+	client.register(OriginalAcceptHdrRestorer.class);
 
-		return client;
-	}
+	return client;
+    }
 }
