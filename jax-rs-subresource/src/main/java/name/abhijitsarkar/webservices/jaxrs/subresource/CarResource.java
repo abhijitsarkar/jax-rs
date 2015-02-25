@@ -11,27 +11,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.UriInfo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Path("car")
 public class CarResource {
-    private static final Logger LOGGER = LoggerFactory
-	    .getLogger(CarResource.class);
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("ctx/{make}/{model}")
     public String handleContext(@Context UriInfo info) {
-	LOGGER.debug("Path: {}, absolute path: {}, base URI: {}.",
-		info.getPath(), info.getAbsolutePath(), info.getBaseUri());
-
 	List<PathSegment> pathSegments = info.getPathSegments();
 
-	LOGGER.debug("Path segments: {}.", pathSegments);
-
-	if (pathSegments != null && pathSegments.size() >= 3) {
-	    return pathSegments.get(3).getPath();
+	if (pathSegments != null && pathSegments.size() >= 2) {
+	    return pathSegments.get(2).getPath();
 	}
 
 	return info.getPath();

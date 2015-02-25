@@ -11,7 +11,6 @@ public class MatrixParamSubresource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{model}/{year}")
     public String handleMatrixParam(@MatrixParam("color") String color) {
-
 	return color;
     }
 }
