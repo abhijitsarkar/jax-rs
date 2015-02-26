@@ -8,6 +8,8 @@
   </parent>
   <artifactId>jax-rs-declarative-security</artifactId>
   <packaging>war</packaging>
+  
+  <description>JAX-RS programmatic security using dynamic feature. Note that we still needs some set up in the web.xml.</description>
 
   <dependencies>
     <dependency>

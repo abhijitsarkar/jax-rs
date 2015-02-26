@@ -8,4 +8,6 @@
   </parent>
   <artifactId>jax-rs-subresource</artifactId>
   <packaging>war</packaging>
+  
+  <description>Demonstrates the usage of sub resources.</description>
 </project>

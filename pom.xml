@@ -335,5 +335,7 @@
     <module>jax-rs-provider</module>
     <module>jax-rs-subresource</module>
     <module>jax-rs-declarative-security</module>
+    <module>jax-rs-programmatic-security</module>
+    <module>jax-rs-hateoas</module>
   </modules>
 </project>

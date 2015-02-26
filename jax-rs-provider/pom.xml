@@ -8,6 +8,11 @@
   </parent>
   <artifactId>jax-rs-provider</artifactId>
   <packaging>war</packaging>
+  
+  <description>
+  	Demonstrates the usage of various entity providers and filters.
+  	
+  	<!-- https://jersey.java.net/documentation/latest/filters-and-interceptors.html -->
+  </description>
 
-  <!-- https://jersey.java.net/documentation/latest/filters-and-interceptors.html -->
 </project>
