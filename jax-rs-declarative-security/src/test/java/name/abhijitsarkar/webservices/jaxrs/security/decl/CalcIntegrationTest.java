@@ -1,6 +1,7 @@
 package name.abhijitsarkar.webservices.jaxrs.security.decl;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static javax.ws.rs.core.Response.Status.OK;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static org.junit.Assert.assertEquals;
@@ -27,6 +28,7 @@ import org.junit.runner.RunWith;
 public class CalcIntegrationTest {
     private static final String WEB_APP_PATH = "src/main/webapp";
 
+    private WebTarget root;
     private WebTarget path;
 
     /*
@@ -50,7 +52,7 @@ public class CalcIntegrationTest {
     @Before
     public void initClient() {
 	Client client = ClientBuilder.newClient();
-	WebTarget root = client
+	root = client
 		.target("http://localhost:8080/jax-rs-declarative-security");
 
 	path = root.path("calc/add").queryParam("augend", 1)
@@ -58,7 +60,7 @@ public class CalcIntegrationTest {
     }
 
     @Test
-    public void testAddAuthorized() {
+    public void testAuthorized() {
 	Builder builder = path.register(
 		new HttpBasicAuthFilter("abhijit", "abhijit")).request(
 		APPLICATION_JSON_TYPE);
@@ -71,13 +73,38 @@ public class CalcIntegrationTest {
     }
 
     @Test
-    public void testAddUnauthorized() {
-	Builder builder = path
-		.register(new HttpBasicAuthFilter("junk", "junk")).request(
-			APPLICATION_JSON_TYPE);
+    public void testUnauthenticated() {
+	Builder builder = path.register(
+		new HttpBasicAuthFilter("abhijit", "junk")).request(
+		APPLICATION_JSON_TYPE);
 
 	Response resp = builder.get();
 
 	assertEquals(UNAUTHORIZED.getStatusCode(), resp.getStatus());
+    }
+
+    @Test
+    public void testUnauthorized() {
+	Builder builder = path.register(
+		new HttpBasicAuthFilter("guest", "guest")).request(
+		APPLICATION_JSON_TYPE);
+
+	Response resp = builder.get();
+
+	assertEquals(FORBIDDEN.getStatusCode(), resp.getStatus());
+    }
+
+    @Test
+    public void testPrecluded() {
+	path = root.path("calc/subtract").queryParam("minuend", 2)
+		.queryParam("subtrahend", 1);
+
+	Builder builder = path.register(
+		new HttpBasicAuthFilter("abhijit", "abhijit")).request(
+		APPLICATION_JSON_TYPE);
+
+	Response resp = builder.get();
+
+	assertEquals(FORBIDDEN.getStatusCode(), resp.getStatus());
     }
 }

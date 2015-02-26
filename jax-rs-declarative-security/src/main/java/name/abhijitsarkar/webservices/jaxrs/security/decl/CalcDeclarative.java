@@ -10,19 +10,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-/* web.xml <security-constraint> element must be present; the web container
- * checks for security before JAX-RS does and without a <security-constraint>, the proper security context is not set.
- */
 @Path("calc")
-/* Either this or web.xml <security-role> must be present */
-@DeclareRoles("celebrity")
+@DeclareRoles({ "mathematician" })
 public class CalcDeclarative {
-    @RolesAllowed("celebrity")
+    @RolesAllowed("mathematician")
     @GET
     @Path("add")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public int add(@QueryParam("augend") int augend, @QueryParam("addend") int addend) {
+    public int add(@QueryParam("augend") int augend,
+	    @QueryParam("addend") int addend) {
 	return augend + addend;
     }
 
@@ -31,8 +28,8 @@ public class CalcDeclarative {
     @Path("subtract")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public int subtract(@QueryParam("arg0") int arg0,
-	    @QueryParam("arg1") int arg1) {
-	return arg0 - arg1;
+    public int subtract(@QueryParam("minuend") int minuend,
+	    @QueryParam("subtrahend") int subtrahend) {
+	return minuend - subtrahend;
     }
 }
