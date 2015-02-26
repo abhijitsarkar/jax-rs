@@ -13,18 +13,17 @@ import javax.ws.rs.core.MediaType;
 /* web.xml <security-constraint> element must be present; the web container
  * checks for security before JAX-RS does and without a <security-constraint>, the proper security context is not set.
  */
-@Path("")
+@Path("calc")
 /* Either this or web.xml <security-role> must be present */
 @DeclareRoles("celebrity")
-public class CalculatorDeclarative {
-
+public class CalcDeclarative {
     @RolesAllowed("celebrity")
     @GET
     @Path("add")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public int add(@QueryParam("arg0") int arg0, @QueryParam("arg1") int arg1) {
-	return arg0 + arg1;
+    public int add(@QueryParam("augend") int augend, @QueryParam("addend") int addend) {
+	return augend + addend;
     }
 
     @DenyAll
